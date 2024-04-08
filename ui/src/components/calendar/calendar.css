@@ -1,0 +1,48 @@
+#calendar {
+  table-layout: fixed;
+  width: 90%;
+  border-collapse: collapse;
+  margin: 1rem auto;
+}
+.headingContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 69px;
+}
+.calendarHeading {
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: 2rem;
+  padding: 1rem;
+  margin: 0;
+}
+.dayHeading {
+  margin: 0 0.125rem 0.25rem 0.125rem;
+  font-weight: normal;
+}
+.arrowContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.arrow {
+  width: 2.5rem;
+  height: auto;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+.previousArrow {
+  transform: rotate(180deg);
+}
+.SAT,
+.SUN {
+  background-color: var(--sat-sun-heading);
+}
+.MON,
+.TUE,
+.WED,
+.THU,
+.FRI {
+  background-color: var(--mon-fri-heading);
+}
