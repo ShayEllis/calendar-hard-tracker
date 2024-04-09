@@ -14,7 +14,12 @@ datasource db {
 }
 
 model Calendar {
-  dateString String @id @db.VarChar(8) 
-  moneySpent Int
-  background Boolean @default(false)
+  dateString String @id @db.VarChar(8)
+  diet Boolean @default(false)
+  noAlcoholOrCheatMeal Boolean @default(false)
+  indoorWorkout Boolean @default(false)
+  outdoorWorkout Boolean @default(false)
+  oneGallonOfWater Boolean @default(false)
+  progressPicture Boolean @default(false)
+  read Boolean @default(false)
 }

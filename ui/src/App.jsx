@@ -17,6 +17,7 @@ function App() {
       .fetchCalendarDayData()
       .then((response) => {
         if (response)
+        console.log(response)
           dispatch({ type: 'app/loadCalenderDayData', payload: response })
       })
       .catch((e) => {
