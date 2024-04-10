@@ -11,13 +11,13 @@ export const CalendarData = ({ date, dayData }) => {
         style={
           dayData?.background ? { backgroundColor: '#5BBB60' } : undefined
         }>
-          <img src={diet} alt='follow a diet' />
-          <img src={indoorWorkout} alt='Indoor workout' />
-          <img src={noCheatMeal} alt='No cheat meal' />
-          <img src={outdoorWorkout} alt='Outdoor workout' />
-          <img src={progressPicture} alt='Progress picture' />
-          <img src={read} alt='Read' />
-          <img src={waterGallon} alt='Gallon of water' />
+          <img src={diet} alt='follow a diet' className='dayIcon' />
+          <img src={indoorWorkout} alt='Indoor workout' className='dayIcon' />
+          <img src={noCheatMeal} alt='No cheat meal' className='dayIcon' />
+          <img src={outdoorWorkout} alt='Outdoor workout' className='dayIcon' />
+          <img src={progressPicture} alt='Progress picture' className='dayIcon' />
+          <img src={read} alt='Read' className='dayIcon' />
+          <img src={waterGallon} alt='Gallon of water' className='dayIcon' />
 
         {/* {!!dayData?.moneySpent && (
           <div className='calendarData'>{`$${dayData.moneySpent}`}</div>

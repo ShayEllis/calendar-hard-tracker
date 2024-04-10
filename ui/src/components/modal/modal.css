@@ -21,9 +21,9 @@ summary {
   border-bottom: 1px solid black;
   width: fit-content;
 }
-.modalDetailsLabel {
+/* .modalDetailsLabel {
   margin: 0.25rem 1rem;
-}
+} */
 .modalLabel {
   display: flex;
   align-items: center;
