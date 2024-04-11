@@ -19,7 +19,7 @@ export const CalendarData = ({ date, dayData }) => {
     outdoorWorkout,
     progressPicture,
     read,
-  } = {...dayData}
+  } = { ...dayData }
 
   return (
     <>
@@ -31,29 +31,39 @@ export const CalendarData = ({ date, dayData }) => {
         }>
         {diet && <img src={dietIcon} alt='follow a diet' className='dayIcon' />}
         {indoorWorkout && (
-          <img src={indoorWorkoutIcon} alt='Indoor workout' className='dayIcon' />
+          <img
+            src={indoorWorkoutIcon}
+            alt='Indoor workout'
+            className='dayIcon'
+          />
+        )}
+        {outdoorWorkout && (
+          <img
+            src={outdoorWorkoutIcon}
+            alt='Progress picture'
+            className='dayIcon'
+          />
         )}
         {noAlcoholOrCheatMeal && (
           <img src={noCheatMealIcon} alt='No cheat meal' className='dayIcon' />
         )}
         {oneGallonOfWater && (
-          <img src={outdoorWorkoutIcon} alt='Outdoor workout' className='dayIcon' />
-        )}
-        {outdoorWorkout && (
           <img
-            src={progressPictureIcon}
-            alt='Progress picture'
+            src={waterGallonIcon}
+            alt='Outdoor workout'
             className='dayIcon'
           />
         )}
-        {progressPicture && <img src={readIcon} alt='Read' className='dayIcon' />}
-        {read && (
-          <img src={waterGallonIcon} alt='Gallon of water' className='dayIcon' />
+        {progressPicture && (
+          <img src={progressPictureIcon} alt='Read' className='dayIcon' />
         )}
-
-        {/* {!!dayData?.moneySpent && (
-          <div className='calendarData'>{`$${dayData.moneySpent}`}</div>
-        )} */}
+        {read && (
+          <img
+            src={readIcon}
+            alt='Gallon of water'
+            className='dayIcon'
+          />
+        )}
       </div>
     </>
   )
