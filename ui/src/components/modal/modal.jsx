@@ -27,51 +27,29 @@ export const Modal = () => {
   }
 
   const modalInputChange = (event, dayIdentifier) => {
-    switch (event.target.name) {
-      case 'diet':
-        dispatch({
-          type: 'modal/changeDiet',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].diet },
-        })
-        break
-      case 'noAlcoholOrCheatMeal':
-        dispatch({
-          type: 'modal/noAlcoholOrCheatMeal',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].noAlcoholOrCheatMeal },
-        })
-        break
-      case 'indoorWorkout':
-        dispatch({
-          type: 'modal/indoorWorkout',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].indoorWorkout },
-        })
-        break
-      case 'outdoorWorkout':
-        dispatch({
-          type: 'modal/outdoorWorkout',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].outdoorWorkout },
-        })
-        break
-      case 'oneGallonOfWater':
-        dispatch({
-          type: 'modal/oneGallonOfWater',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].oneGallonOfWater },
-        })
-        break
-      case 'progressPicture':
-        dispatch({
-          type: 'modal/progressPicture',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].progressPicture },
-        })
-        break
-      case 'read':
-        dispatch({
-          type: 'modal/read',
-          payload: { dayIdentifier, value: !state.dayData[dayIdentifier].read },
-        })
-        break
-      default:
-        console.error(`No input with the name '${event.target.name}'`)
+    const allowedInputNames = [
+      'diet',
+      'noAlcoholOrCheatMeal',
+      'indoorWorkout',
+      'outdoorWorkout',
+      'oneGallonOfWater',
+      'progressPicture',
+      'read',
+    ]
+    // const capitalInputName = `${event.target.name[0].toUpperCase()}${event.target.name.slice(
+    //   1
+    // )}`
+    if (allowedInputNames.includes(event.target.name)) {
+      dispatch({
+        type: `modal/changeInputValue`,
+        payload: {
+          dayIdentifier,
+          inputName: event.target.name,
+          value: !state.dayData[dayIdentifier][event.target.name],
+        },
+      })
+    } else {
+      console.error(`No input with the name '${event.target.name}'`)
     }
   }
 
@@ -86,10 +64,11 @@ export const Modal = () => {
 
   // Sends data to the server when the modal is closed
   const handleModalClose = () => {
-    const { moneySpent, background } = state.dayData[state.selectedDay]
+    const inputValues = state.dayData[state.selectedDay]
+    const allInputValuesFalse = Object.values(inputValues).every((value) => value === false)
 
     if (state.exsistingDayData) {
-      if (!moneySpent && !background) {
+      if (allInputValuesFalse) {
         calendarServer.deleteCalendarDayData(state.selectedDay)
         dispatch({
           type: 'modal/deleteCalendarDayData',
@@ -98,14 +77,14 @@ export const Modal = () => {
       } else {
         calendarServer.updateCalendarDayData(
           state.selectedDay,
-          state.dayData[state.selectedDay]
+          inputValues
         )
       }
     } else {
-      if (!!moneySpent || background) {
+      if (!allInputValuesFalse) {
         const dayData = {
           dateString: state.selectedDay,
-          ...state.dayData[state.selectedDay],
+          ...inputValues,
         }
         calendarServer.createCalendarDayData(dayData)
       } else {

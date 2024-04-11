@@ -20,15 +20,15 @@ app.get('/api/calendar', async (req, res) => {
 })
 
 app.post('/api/calendar', async (req, res) => {
-  const { dateString, moneySpent, background } = req.body
+  const data = req.body
 
-  if (!dateString || typeof background !== 'boolean') {
+  if (!data.dateString) {
     return res.status(400).send('Date string and background required.')
   }
 
   try {
     const note = await prisma.Calendar.create({
-      data: { dateString, moneySpent, background },
+      data,
     })
     return res.json(note)
   } catch (e) {
@@ -38,17 +38,13 @@ app.post('/api/calendar', async (req, res) => {
 })
 
 app.put('/api/calendar/:dateString', async (req, res) => {
-  const { moneySpent, background } = req.body
+  const data = req.body
   const dateString = req.params.dateString
-
-  if (typeof background !== 'boolean') {
-    return res.status(400).send('Date string and background required.')
-  }
 
   try {
     const updateCalendarDay = await prisma.Calendar.update({
       where: { dateString },
-      data: { moneySpent: moneySpent, background },
+      data,
     })
     return res.json(updateCalendarDay)
   } catch (e) {

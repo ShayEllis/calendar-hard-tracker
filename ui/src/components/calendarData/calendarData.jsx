@@ -1,8 +1,26 @@
 import PropTypes from 'prop-types'
 import './calendarData.css'
-import { diet, indoorWorkout, noCheatMeal, outdoorWorkout, progressPicture, read, waterGallon } from '../../assets/icons'
+import {
+  dietIcon,
+  indoorWorkoutIcon,
+  noCheatMealIcon,
+  outdoorWorkoutIcon,
+  progressPictureIcon,
+  readIcon,
+  waterGallonIcon,
+} from '../../assets/icons'
 
 export const CalendarData = ({ date, dayData }) => {
+  const {
+    diet,
+    indoorWorkout,
+    noAlcoholOrCheatMeal,
+    oneGallonOfWater,
+    outdoorWorkout,
+    progressPicture,
+    read,
+  } = {...dayData}
+
   return (
     <>
       <span className='calendarDate'>{date}</span>
@@ -11,13 +29,27 @@ export const CalendarData = ({ date, dayData }) => {
         style={
           dayData?.background ? { backgroundColor: '#5BBB60' } : undefined
         }>
-          <img src={diet} alt='follow a diet' className='dayIcon' />
-          <img src={indoorWorkout} alt='Indoor workout' className='dayIcon' />
-          <img src={noCheatMeal} alt='No cheat meal' className='dayIcon' />
-          <img src={outdoorWorkout} alt='Outdoor workout' className='dayIcon' />
-          <img src={progressPicture} alt='Progress picture' className='dayIcon' />
-          <img src={read} alt='Read' className='dayIcon' />
-          <img src={waterGallon} alt='Gallon of water' className='dayIcon' />
+        {diet && <img src={dietIcon} alt='follow a diet' className='dayIcon' />}
+        {indoorWorkout && (
+          <img src={indoorWorkoutIcon} alt='Indoor workout' className='dayIcon' />
+        )}
+        {noAlcoholOrCheatMeal && (
+          <img src={noCheatMealIcon} alt='No cheat meal' className='dayIcon' />
+        )}
+        {oneGallonOfWater && (
+          <img src={outdoorWorkoutIcon} alt='Outdoor workout' className='dayIcon' />
+        )}
+        {outdoorWorkout && (
+          <img
+            src={progressPictureIcon}
+            alt='Progress picture'
+            className='dayIcon'
+          />
+        )}
+        {progressPicture && <img src={readIcon} alt='Read' className='dayIcon' />}
+        {read && (
+          <img src={waterGallonIcon} alt='Gallon of water' className='dayIcon' />
+        )}
 
         {/* {!!dayData?.moneySpent && (
           <div className='calendarData'>{`$${dayData.moneySpent}`}</div>

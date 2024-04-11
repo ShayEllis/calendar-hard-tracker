@@ -12,10 +12,9 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case 'app/loadCalenderDayData': {
       const serverDayData = action.payload.reduce((acc, val) => {
-        acc[val.dateString] = {
-          moneySpent: val.moneySpent,
-          background: val.background,
-        }
+        const valInputValues = {...val}
+        delete valInputValues.dateString
+        acc[val.dateString] = valInputValues
         return acc
       }, {})
       return { ...state, dayData: { ...state.dayData, ...serverDayData } }
@@ -48,7 +47,15 @@ export const reducer = (state, action) => {
           exsistingDayData: false,
           dayData: {
             ...state.dayData,
-            [action.payload]: { moneySpent: 0, background: false },
+            [action.payload]: {
+              diet: false,
+              noAlcoholOrCheatMeal: false,
+              indoorWorkout: false,
+              outdoorWorkout: false,
+              oneGallonOfWater: false,
+              progressPicture: false,
+              read: false,
+            },
           },
         }
       } else {
@@ -60,30 +67,26 @@ export const reducer = (state, action) => {
         ...state,
         dayData: {
           ...state.dayData,
-          [action.payload]: { moneySpent: 0, background: false },
-        },
-      }
-    }
-    case 'modal/changeMoneySpent': {
-      return {
-        ...state,
-        dayData: {
-          ...state.dayData,
-          [action.payload.dayIdentifier]: {
-            ...state.dayData[action.payload.dayIdentifier],
-            moneySpent: action.payload.value,
+          [action.payload]: {
+            diet: false,
+            noAlcoholOrCheatMeal: false,
+            indoorWorkout: false,
+            outdoorWorkout: false,
+            oneGallonOfWater: false,
+            progressPicture: false,
+            read: false,
           },
         },
       }
     }
-    case 'modal/changeBackground': {
+    case 'modal/changeInputValue': {
       return {
         ...state,
         dayData: {
           ...state.dayData,
           [action.payload.dayIdentifier]: {
             ...state.dayData[action.payload.dayIdentifier],
-            background: action.payload.value,
+            [action.payload.inputName]: action.payload.value,
           },
         },
       }
