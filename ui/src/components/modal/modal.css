@@ -1,51 +1,11 @@
 .dialog {
   position: relative;
   border: none;
-  min-width: 352px;
+  min-width: 265px;
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: hsl(0 0% 0% / 20%) 0 0 0.5rem 0.25rem;
 }
 .dialog::backdrop {
   background: var(--backdrop);
-}
-.inputContainer {
-  position: relative;
-  margin: 0 auto;
-  width: fit-content;
-}
-details {
-  padding-top: 0.5rem;
-}
-summary {
-  border-bottom: 1px solid black;
-  width: fit-content;
-}
-/* .modalDetailsLabel {
-  margin: 0.25rem 1rem;
-} */
-.modalLabel {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-}
-.moneySpentLabel {
-  min-width: 288px;
-}
-.moneySpentLabel::after {
-  content: '$';
-  position: absolute;
-  top: 3px;
-  left: 109px;
-}
-.modalInput {
-  margin-left: 0.5rem;
-}
-.moneySpentInput {
-  padding-left: 0.75rem;
-}
-.modalSaveBtn {
-  display: inline-block;
-  cursor: pointer;
-  margin: 1rem 1rem 0 1rem;
 }

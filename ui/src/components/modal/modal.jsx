@@ -5,6 +5,11 @@ import {
   CalendarDispatchContext,
 } from '../../context/calendarContexts'
 import { calendarServer } from '../../utils/calendarServer'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
 
 // This is a Modal wrapper component that will allow data to be entered on each calendar day
 export const Modal = () => {
@@ -65,7 +70,9 @@ export const Modal = () => {
   // Sends data to the server when the modal is closed
   const handleModalClose = () => {
     const inputValues = state.dayData[state.selectedDay]
-    const allInputValuesFalse = Object.values(inputValues).every((value) => value === false)
+    const allInputValuesFalse = Object.values(inputValues).every(
+      (value) => value === false
+    )
 
     if (state.exsistingDayData) {
       if (allInputValuesFalse) {
@@ -75,10 +82,7 @@ export const Modal = () => {
           payload: state.selectedDay,
         })
       } else {
-        calendarServer.updateCalendarDayData(
-          state.selectedDay,
-          inputValues
-        )
+        calendarServer.updateCalendarDayData(state.selectedDay, inputValues)
       }
     } else {
       if (!allInputValuesFalse) {
@@ -105,84 +109,97 @@ export const Modal = () => {
         onKeyDown={handleKeyDown}
         onClose={handleModalClose}
         ref={modalRef}>
-        <div className='inputContainer'>
-          <label className='modalLabel'>
-            Follow a Diet:
-            <input
-              type='checkbox'
-              name='diet'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].diet}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            No alcohol/cheat meal:
-            <input
-              type='checkbox'
-              name='noAlcoholOrCheatMeal'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].noAlcoholOrCheatMeal}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            45 min indoor workout:
-            <input
-              type='checkbox'
-              name='indoorWorkout'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].indoorWorkout}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            45 min outdoor workout:
-            <input
-              type='checkbox'
-              name='outdoorWorkout'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].outdoorWorkout}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            Drink 1 Gallon of water:
-            <input
-              type='checkbox'
-              name='oneGallonOfWater'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].oneGallonOfWater}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            Progress picture:
-            <input
-              type='checkbox'
-              name='progressPicture'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].progressPicture}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
-          <label className='modalLabel'>
-            Read ten pages:
-            <input
-              type='checkbox'
-              name='read'
-              className='modalInput'
-              checked={state.dayData[state.selectedDay].read}
-              onChange={(event) => modalInputChange(event, state.selectedDay)}
-            />
-          </label>
+        <FormGroup>
+          <FormControlLabel
+            label='Follow a diet'
+            control={
+              <Checkbox
+                color='secondary'
+                name='diet'
+                checked={state.dayData[state.selectedDay].diet}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='No alcohol or cheat meal'
+            control={
+              <Checkbox
+                color='secondary'
+                name='noAlcoholOrCheatMeal'
+                checked={state.dayData[state.selectedDay].noAlcoholOrCheatMeal}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='45 min indoor workout'
+            control={
+              <Checkbox
+                color='secondary'
+                name='indoorWorkout'
+                checked={state.dayData[state.selectedDay].indoorWorkout}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='45 min outdoor workout'
+            control={
+              <Checkbox
+                color='secondary'
+                name='outdoorWorkout'
+                checked={state.dayData[state.selectedDay].outdoorWorkout}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='Drink one gallon of water'
+            control={
+              <Checkbox
+                color='secondary'
+                name='oneGallonOfWater'
+                checked={state.dayData[state.selectedDay].oneGallonOfWater}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='Progress picture'
+            control={
+              <Checkbox
+                color='secondary'
+                name='progressPicture'
+                checked={state.dayData[state.selectedDay].progressPicture}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+          <FormControlLabel
+            label='Read ten pages'
+            control={
+              <Checkbox
+                color='secondary'
+                name='read'
+                checked={state.dayData[state.selectedDay].read}
+                onChange={(event) => modalInputChange(event, state.selectedDay)}
+              />
+            }
+          />
+        </FormGroup>
+        <div>
+          <Stack
+            direction='row'
+            pt={1}
+            justifyContent='center'
+            alignItems='center'
+            spacing={2}
+            color='secondary'>
+            <Button color='secondary' variant='contained' disableElevation onClick={closeModal}>Save</Button>
+            <Button color='secondary' variant='contained' disableElevation onClick={clearDayValues}>Clear</Button>
+          </Stack>
         </div>
-        <button className='modalSaveBtn' onClick={closeModal}>
-          Save
-        </button>
-        <button className='modalSaveBtn' onClick={clearDayValues}>
-          Clear
-        </button>
       </dialog>
     </div>
   )

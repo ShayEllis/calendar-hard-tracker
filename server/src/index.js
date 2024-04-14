@@ -9,6 +9,10 @@ const port = 3000
 app.use(express.json())
 app.use(cors())
 
+app.get('/health', (req, res) => {
+  return res.sendStatus(200)
+})
+
 app.get('/api/calendar', async (req, res) => {
   try {
     const calendarData = await prisma.Calendar.findMany()
