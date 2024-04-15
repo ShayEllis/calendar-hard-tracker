@@ -24,7 +24,7 @@ function App() {
       .then((response) => {
         if (response) {
           dispatch({ type: 'app/loadCalenderDayData', payload: response })
-          setTimeout(() => setFetchingData(false), 7000)
+          setFetchingData(false)
         }
       })
       .catch((e) => {
