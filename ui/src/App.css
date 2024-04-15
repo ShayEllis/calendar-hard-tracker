@@ -1,5 +1,10 @@
 #root {
-  overflow: auto;
-  height: 100%;
+  overflow: hidden;
+  height: 100vh;
   background-color: var(--main-background);
+}
+.bodyContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }

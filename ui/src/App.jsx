@@ -24,7 +24,7 @@ function App() {
       .then((response) => {
         if (response) {
           dispatch({ type: 'app/loadCalenderDayData', payload: response })
-          setFetchingData(false)
+          setTimeout(() => setFetchingData(false), 7000)
         }
       })
       .catch((e) => {
@@ -35,27 +35,31 @@ function App() {
   return (
     <CalendarContext.Provider value={state}>
       <CalendarDispatchContext.Provider value={dispatch}>
-        <Backdrop
-          sx={{
-            color: '#AFB3F7',
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-          }}
-          open={fetchingData}
-          onClick={() => console.log('clicked')}>
-          <CircularProgress color='inherit' size={85} thickness={2} />
-          <Box
+        {fetchingData &&
+          <Backdrop
             sx={{
-              position: 'absolute',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Typography variant='caption' component='div' color='inherit'>
-              Loading...
-            </Typography>
-          </Box>
-        </Backdrop>
-        <Calendar />
+              color: '#AFB3F7',
+              zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            open={true}
+            onClick={() => console.log('clicked')}>
+            <CircularProgress color='inherit' size={85} thickness={2} />
+            <Box
+              sx={{
+                position: 'absolute',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Typography variant='caption' component='div' color='inherit'>
+                Loading...
+              </Typography>
+            </Box>
+          </Backdrop>
+        }
+        <div className='bodyContainer'>
+          <Calendar />
+        </div>
       </CalendarDispatchContext.Provider>
     </CalendarContext.Provider>
   )

@@ -18,22 +18,3 @@
   width: 20%;
   height: auto;
 }
-/* .calendarData {
-  color: red;
-  font-weight: bold;
-  font-size: 2rem;
-  margin: 0.25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-@media screen and (max-width: 850px) {
-  .calendarData {
-    font-size: 1.25rem;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .calendarData {
-    font-size: 1rem;
-  }
-}

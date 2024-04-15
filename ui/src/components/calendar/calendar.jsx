@@ -54,61 +54,63 @@ export const Calendar = () => {
   }
 
   return (
-    <table id='calendar'>
-      <thead>
-        <tr>
-          <th colSpan={7}>
-            {state.selectedDay && (
-              <Modal
-                selectedDay={state.selectedDay}
-                dayData={state.dayData ? state.dayData : undefined}
-              />
-            )}
-            <div className='headingContainer'>
-              <div className='arrowContainer'>
-                <img
-                  src={Arrow}
-                  alt='Previous Month'
-                  className='arrow previousArrow'
-                  onClick={handlePreviousArrowClick}
+    <div className='calendarContainer'>
+      <table id='calendar'>
+        <thead>
+          <tr>
+            <th colSpan={7}>
+              {state.selectedDay && (
+                <Modal
+                  selectedDay={state.selectedDay}
+                  dayData={state.dayData ? state.dayData : undefined}
                 />
-              </div>
+              )}
+              <div className='headingContainer'>
+                <div className='arrowContainer'>
+                  <img
+                    src={Arrow}
+                    alt='Previous Month'
+                    className='arrow previousArrow'
+                    onClick={handlePreviousArrowClick}
+                  />
+                </div>
 
-              <h2 className='calendarHeading'>
-                {`${
-                  months[state.calendarMonth.getMonth()]
-                } ${state.calendarMonth.getFullYear()}`}
-              </h2>
-              <div className='arrowContainer'>
-                <img
-                  src={Arrow}
-                  alt='Next Month'
-                  className='arrow nextArrow'
-                  onClick={handleNextArrowClick}
-                />
+                <h2 className='calendarHeading'>
+                  {`${
+                    months[state.calendarMonth.getMonth()]
+                  } ${state.calendarMonth.getFullYear()}`}
+                </h2>
+                <div className='arrowContainer'>
+                  <img
+                    src={Arrow}
+                    alt='Next Month'
+                    className='arrow nextArrow'
+                    onClick={handleNextArrowClick}
+                  />
+                </div>
               </div>
-            </div>
-          </th>
-        </tr>
-        <tr>
-          {weekDays.map((day) => (
-            <th key={day}>
-              <div className={`dayHeading ${day}`}>{day}</div>
             </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {Array(weeksInCurrentMonth)
-          .fill(null)
-          .map((week, idx) => (
-            <CalendarWeek
-              key={`${state.calendarMonth.getMonth()}${state.calendarMonth.getFullYear()}${idx}`}
-              days={days}
-              week={idx}
-            />
-          ))}
-      </tbody>
-    </table>
+          </tr>
+          <tr>
+            {weekDays.map((day) => (
+              <th key={day}>
+                <div className={`dayHeading ${day}`}>{day}</div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array(weeksInCurrentMonth)
+            .fill(null)
+            .map((week, idx) => (
+              <CalendarWeek
+                key={`${state.calendarMonth.getMonth()}${state.calendarMonth.getFullYear()}${idx}`}
+                days={days}
+                week={idx}
+              />
+            ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
