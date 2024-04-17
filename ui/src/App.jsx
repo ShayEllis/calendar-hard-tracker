@@ -41,8 +41,7 @@ function App() {
               color: '#AFB3F7',
               zIndex: (theme) => theme.zIndex.drawer + 1,
             }}
-            open={true}
-            onClick={() => console.log('clicked')}>
+            open={true}>
             <CircularProgress color='inherit' size={85} thickness={2} />
             <Box
               sx={{

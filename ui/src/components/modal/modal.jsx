@@ -95,7 +95,7 @@ export const Modal = ({ setShowConfetti }) => {
         })
       }
     }
-    if (Object.values(state.dayData[state.selectedDay]).filter((inputVal) => inputVal === true).length) setShowConfetti(true)
+    if (Object.values(state.dayData[state.selectedDay]).filter((inputVal) => inputVal === true).length === 7) setShowConfetti(true)
     dispatch({ type: 'modal/removeSelectedDay' })
   }
 
