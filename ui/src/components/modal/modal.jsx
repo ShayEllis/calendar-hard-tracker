@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useContext } from 'react'
+import { useRef, useEffect, useContext } from 'react'
 import './modal.css'
 import {
   CalendarContext,
@@ -10,6 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
 
 // This is a Modal wrapper component that will allow data to be entered on each calendar day
 export const Modal = ({ setShowConfetti }) => {
@@ -63,6 +64,10 @@ export const Modal = ({ setShowConfetti }) => {
   const handleKeyDown = ({ key }) => {
     if (key === 'Enter') closeModal()
   }
+  // WORKING ON THIS ****************
+  const handleBackdropClick = (event) => {
+    if (event.target.id === 'modal') closeModal()
+  }
 
   // Sends data to the server when the modal is closed
   const handleModalClose = () => {
@@ -95,7 +100,12 @@ export const Modal = ({ setShowConfetti }) => {
         })
       }
     }
-    if (Object.values(state.dayData[state.selectedDay]).filter((inputVal) => inputVal === true).length === 7) setShowConfetti(true)
+    if (
+      Object.values(state.dayData[state.selectedDay]).filter(
+        (inputVal) => inputVal === true
+      ).length === 7
+    )
+      setShowConfetti(true)
     dispatch({ type: 'modal/removeSelectedDay' })
   }
 
@@ -106,110 +116,129 @@ export const Modal = ({ setShowConfetti }) => {
         className='dialog'
         onKeyDown={handleKeyDown}
         onClose={handleModalClose}
+        onMouseDown={handleBackdropClick}
         ref={modalRef}>
-        <FormGroup>
-          <FormControlLabel
-            label='Follow a diet'
-            control={
-              <Checkbox
+        <Box sx={{ padding: '1rem'}}>
+          <FormGroup>
+            <FormControlLabel
+              label='Follow a diet'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='diet'
+                  checked={state.dayData[state.selectedDay].diet}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='No alcohol or cheat meal'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='noAlcoholOrCheatMeal'
+                  checked={
+                    state.dayData[state.selectedDay].noAlcoholOrCheatMeal
+                  }
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='45 min indoor workout'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='indoorWorkout'
+                  checked={state.dayData[state.selectedDay].indoorWorkout}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='45 min outdoor workout'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='outdoorWorkout'
+                  checked={state.dayData[state.selectedDay].outdoorWorkout}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='Drink one gallon of water'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='oneGallonOfWater'
+                  checked={state.dayData[state.selectedDay].oneGallonOfWater}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='Progress picture'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='progressPicture'
+                  checked={state.dayData[state.selectedDay].progressPicture}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+            <FormControlLabel
+              label='Read ten pages'
+              control={
+                <Checkbox
+                  color='secondary'
+                  name='read'
+                  checked={state.dayData[state.selectedDay].read}
+                  onChange={(event) =>
+                    modalInputChange(event, state.selectedDay)
+                  }
+                />
+              }
+            />
+          </FormGroup>
+          <div>
+            <Stack
+              direction='row'
+              pt={1}
+              justifyContent='center'
+              alignItems='center'
+              spacing={2}
+              color='secondary'>
+              <Button
                 color='secondary'
-                name='diet'
-                checked={state.dayData[state.selectedDay].diet}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='No alcohol or cheat meal'
-            control={
-              <Checkbox
+                variant='contained'
+                disableElevation
+                onClick={closeModal}>
+                Save
+              </Button>
+              <Button
                 color='secondary'
-                name='noAlcoholOrCheatMeal'
-                checked={state.dayData[state.selectedDay].noAlcoholOrCheatMeal}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='45 min indoor workout'
-            control={
-              <Checkbox
-                color='secondary'
-                name='indoorWorkout'
-                checked={state.dayData[state.selectedDay].indoorWorkout}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='45 min outdoor workout'
-            control={
-              <Checkbox
-                color='secondary'
-                name='outdoorWorkout'
-                checked={state.dayData[state.selectedDay].outdoorWorkout}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='Drink one gallon of water'
-            control={
-              <Checkbox
-                color='secondary'
-                name='oneGallonOfWater'
-                checked={state.dayData[state.selectedDay].oneGallonOfWater}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='Progress picture'
-            control={
-              <Checkbox
-                color='secondary'
-                name='progressPicture'
-                checked={state.dayData[state.selectedDay].progressPicture}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-          <FormControlLabel
-            label='Read ten pages'
-            control={
-              <Checkbox
-                color='secondary'
-                name='read'
-                checked={state.dayData[state.selectedDay].read}
-                onChange={(event) => modalInputChange(event, state.selectedDay)}
-              />
-            }
-          />
-        </FormGroup>
-        <div>
-          <Stack
-            direction='row'
-            pt={1}
-            justifyContent='center'
-            alignItems='center'
-            spacing={2}
-            color='secondary'>
-            <Button
-              color='secondary'
-              variant='contained'
-              disableElevation
-              onClick={closeModal}>
-              Save
-            </Button>
-            <Button
-              color='secondary'
-              variant='contained'
-              disableElevation
-              onClick={clearDayValues}>
-              Clear
-            </Button>
-          </Stack>
-        </div>
+                variant='contained'
+                disableElevation
+                onClick={clearDayValues}>
+                Clear
+              </Button>
+            </Stack>
+          </div>
+        </Box>
       </dialog>
     </div>
   )

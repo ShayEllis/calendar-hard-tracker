@@ -2,7 +2,7 @@
   position: relative;
   border: none;
   min-width: 265px;
-  padding: 1rem;
+  padding: 0;
   border-radius: 0.5rem;
   box-shadow: hsl(0 0% 0% / 20%) 0 0 0.5rem 0.25rem;
 }
