@@ -2,8 +2,7 @@
   border: 1px dashed var(--main-text);
 }
 .calendarCell {
-  position: relative;
-  padding: 2px;
+  padding: 1px;
   aspect-ratio: 1 / 1;
 }
 .calendarCell:hover {

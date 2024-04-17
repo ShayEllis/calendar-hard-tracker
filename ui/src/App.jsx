@@ -35,7 +35,7 @@ function App() {
   return (
     <CalendarContext.Provider value={state}>
       <CalendarDispatchContext.Provider value={dispatch}>
-        {fetchingData &&
+        {fetchingData && (
           <Backdrop
             sx={{
               color: '#AFB3F7',
@@ -56,7 +56,7 @@ function App() {
               </Typography>
             </Box>
           </Backdrop>
-        }
+        )}
         <div className='bodyContainer'>
           <Calendar />
         </div>

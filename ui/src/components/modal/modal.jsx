@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext } from 'react'
+import { useRef, useState, useEffect, useContext } from 'react'
 import './modal.css'
 import {
   CalendarContext,
@@ -12,7 +12,7 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
 // This is a Modal wrapper component that will allow data to be entered on each calendar day
-export const Modal = () => {
+export const Modal = ({ setShowConfetti }) => {
   const state = useContext(CalendarContext)
   const dispatch = useContext(CalendarDispatchContext)
 
@@ -41,9 +41,6 @@ export const Modal = () => {
       'progressPicture',
       'read',
     ]
-    // const capitalInputName = `${event.target.name[0].toUpperCase()}${event.target.name.slice(
-    //   1
-    // )}`
     if (allowedInputNames.includes(event.target.name)) {
       dispatch({
         type: `modal/changeInputValue`,
@@ -98,6 +95,7 @@ export const Modal = () => {
         })
       }
     }
+    if (Object.values(state.dayData[state.selectedDay]).filter((inputVal) => inputVal === true).length) setShowConfetti(true)
     dispatch({ type: 'modal/removeSelectedDay' })
   }
 
@@ -196,8 +194,20 @@ export const Modal = () => {
             alignItems='center'
             spacing={2}
             color='secondary'>
-            <Button color='secondary' variant='contained' disableElevation onClick={closeModal}>Save</Button>
-            <Button color='secondary' variant='contained' disableElevation onClick={clearDayValues}>Clear</Button>
+            <Button
+              color='secondary'
+              variant='contained'
+              disableElevation
+              onClick={closeModal}>
+              Save
+            </Button>
+            <Button
+              color='secondary'
+              variant='contained'
+              disableElevation
+              onClick={clearDayValues}>
+              Clear
+            </Button>
           </Stack>
         </div>
       </dialog>

@@ -1,13 +1,37 @@
+.calendarDataContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (max-width: 550px) {
+  .dayHeader {
+    font-size: 0.75rem;
+  }
+}
 .calendarDate {
-  position: absolute;
   top: 0;
   left: 2px;
 }
-.calendarDataContainer {
-  padding-top: 16px;
+.dayProgressContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dayProgress {
+  color: var(--calendar-day-text);
+  top: 0;
+  left: 22px;
+}
+.dayBody {
+  flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   justify-content: space-around;
   align-items: center;
   align-content: center;

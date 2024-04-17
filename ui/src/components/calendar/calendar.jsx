@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Arrow from '../../assets/arrow.png'
 import './calendar.css'
 import { generateCalendarDays } from '../../utils/utils'
@@ -8,6 +8,8 @@ import {
   CalendarContext,
   CalendarDispatchContext,
 } from '../../context/calendarContexts'
+import { Confetti } from '../confetti/confetti'
+
 
 export const Calendar = () => {
   const state = useContext(CalendarContext)
@@ -44,6 +46,7 @@ export const Calendar = () => {
   )
   // Use utils function to generate the days in the calender
   const days = generateCalendarDays(state.calendarMonth)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   const handlePreviousArrowClick = () => {
     dispatch({ type: 'calendar/previousMonth' })
@@ -59,10 +62,13 @@ export const Calendar = () => {
         <thead>
           <tr>
             <th colSpan={7}>
+            {showConfetti && <Confetti setShowConfetti={setShowConfetti} />}
+
               {state.selectedDay && (
                 <Modal
                   selectedDay={state.selectedDay}
                   dayData={state.dayData ? state.dayData : undefined}
+                  setShowConfetti={setShowConfetti}
                 />
               )}
               <div className='headingContainer'>

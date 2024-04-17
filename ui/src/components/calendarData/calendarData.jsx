@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './calendarData.css'
 import {
@@ -20,15 +21,42 @@ export const CalendarData = ({ date, dayData }) => {
     progressPicture,
     read,
   } = { ...dayData }
+  const numInputs = 7
+  const [numTrueInputs, setNumTrueInputs] = useState(0)
+
+  useEffect(() => {
+    if (dayData !== undefined) {
+      setNumTrueInputs(
+        Object.values(dayData).filter((inputVal) => inputVal === true).length
+      )
+    }
+  }, [
+    diet,
+    indoorWorkout,
+    noAlcoholOrCheatMeal,
+    oneGallonOfWater,
+    outdoorWorkout,
+    progressPicture,
+    read,
+  ])
 
   return (
-    <>
-      <span className='calendarDate'>{date}</span>
-      <div
-        className='calendarDataContainer'
-        style={
-          dayData?.background ? { backgroundColor: '#5BBB60' } : undefined
-        }>
+    <div
+      className='calendarDataContainer'
+      style={
+        numTrueInputs === numInputs ? { backgroundColor: '#CCC9E7' } : undefined
+      }>
+      <div className='dayHeader'>
+        <div className='calendarDate'>{date}</div>
+        <div className='dayProgressContainer'>
+          {numTrueInputs > 0 && (
+            <div className='dayProgress'>
+              {numTrueInputs}/{numInputs}
+            </div>
+          )}
+        </div>
+      </div>
+      <div className='dayBody'>
         {diet && <img src={dietIcon} alt='follow a diet' className='dayIcon' />}
         {indoorWorkout && (
           <img
@@ -58,14 +86,10 @@ export const CalendarData = ({ date, dayData }) => {
           <img src={progressPictureIcon} alt='Read' className='dayIcon' />
         )}
         {read && (
-          <img
-            src={readIcon}
-            alt='Gallon of water'
-            className='dayIcon'
-          />
+          <img src={readIcon} alt='Gallon of water' className='dayIcon' />
         )}
       </div>
-    </>
+    </div>
   )
 }
 
