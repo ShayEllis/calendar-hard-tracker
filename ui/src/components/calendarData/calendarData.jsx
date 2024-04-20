@@ -12,6 +12,7 @@ import {
 } from '../../assets/icons'
 
 export const CalendarData = ({ date, dayData }) => {
+  // Create new opject and copy dayData defore destructuring, this prevents an error when dayData is undefined
   const {
     diet,
     indoorWorkout,
@@ -21,9 +22,12 @@ export const CalendarData = ({ date, dayData }) => {
     progressPicture,
     read,
   } = { ...dayData }
+  // Number of checkboxes in the form
   const numInputs = 7
+  // Local state to keep track of how many checkboxes are checked
   const [numTrueInputs, setNumTrueInputs] = useState(0)
 
+  // Each time the state is changed for a checkbox recacluate how many are checked
   useEffect(() => {
     if (dayData !== undefined) {
       setNumTrueInputs(
@@ -96,5 +100,4 @@ export const CalendarData = ({ date, dayData }) => {
 CalendarData.propTypes = {
   date: PropTypes.number.isRequired,
   dayData: PropTypes.object,
-  highlightDay: PropTypes.bool,
 }

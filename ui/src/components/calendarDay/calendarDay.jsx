@@ -9,6 +9,7 @@ import {
 } from '../../context/calendarContexts'
 
 export const CalendarDay = ({ day }) => {
+  // Main calendar state and dispatch function
   const state = useContext(CalendarContext)
   const dispatch = useContext(CalendarDispatchContext)
 

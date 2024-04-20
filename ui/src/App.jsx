@@ -18,6 +18,7 @@ function App() {
   // Spinner displays when data is being fetched from the server
   const [fetchingData, setFetchingData] = useState(true)
 
+  // Fetch exsisting data from the server
   useEffect(() => {
     calendarServer
       .fetchCalendarDayData()

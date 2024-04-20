@@ -1,4 +1,5 @@
 import { useRef, useEffect, useContext } from 'react'
+import PropTypes from 'prop-types'
 import './modal.css'
 import {
   CalendarContext,
@@ -12,12 +13,12 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
-// This is a Modal wrapper component that will allow data to be entered on each calendar day
-export const Modal = ({ setShowConfetti }) => {
+export const Modal = ({ showConfetti }) => {
+  // Main calendar state and dispatch function
   const state = useContext(CalendarContext)
   const dispatch = useContext(CalendarDispatchContext)
 
-  // Reference to the modal so that it can be opened and closed
+  // Reference to the modal, this will be used later to open and close it.
   const modalRef = useRef(null)
 
   const showModal = () => {
@@ -56,15 +57,16 @@ export const Modal = ({ setShowConfetti }) => {
     }
   }
 
+  // Open the modal if a day is currently selected
   useEffect(() => {
     if (state.selectedDay) showModal()
   })
 
-  // Allows the modal to be closed when the enter key on the keyboard is pressed
+  // Allow the modal to be closed when the enter key on the keyboard is pressed
   const handleKeyDown = ({ key }) => {
     if (key === 'Enter') closeModal()
   }
-  // WORKING ON THIS ****************
+  // Allow the modal to be closed by clicking on the backdrop
   const handleBackdropClick = (event) => {
     if (event.target.id === 'modal') closeModal()
   }
@@ -104,8 +106,9 @@ export const Modal = ({ setShowConfetti }) => {
       Object.values(state.dayData[state.selectedDay]).filter(
         (inputVal) => inputVal === true
       ).length === 7
-    )
-      setShowConfetti(true)
+    ) {
+      showConfetti()
+    }
     dispatch({ type: 'modal/removeSelectedDay' })
   }
 
@@ -118,7 +121,7 @@ export const Modal = ({ setShowConfetti }) => {
         onClose={handleModalClose}
         onMouseDown={handleBackdropClick}
         ref={modalRef}>
-        <Box sx={{ padding: '1rem'}}>
+        <Box sx={{ padding: '1rem' }}>
           <FormGroup>
             <FormControlLabel
               label='Follow a diet'
@@ -242,4 +245,8 @@ export const Modal = ({ setShowConfetti }) => {
       </dialog>
     </div>
   )
+}
+
+Modal.proptypes = {
+  showConfetti: PropTypes.func.isRequired,
 }

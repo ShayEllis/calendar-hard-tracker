@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import './calendarWeek.css'
 import { CalendarDay } from '../calendarDay/calendarDay'
 import { getDayIdentifier } from '../../utils/utils'
 

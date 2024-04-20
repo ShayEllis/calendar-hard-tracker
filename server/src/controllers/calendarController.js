@@ -1,29 +1,16 @@
-import express from 'express'
-import cors from 'cors'
-import { PrismaClient } from '@prisma/client'
+import { calendarModel } from "../models/model.js"
 
-const app = express()
-const prisma = new PrismaClient()
-const port = 3000
-
-app.use(express.json())
-app.use(cors())
-
-app.get('/health', (req, res) => {
-  return res.sendStatus(200)
-})
-
-app.get('/api/calendar', async (req, res) => {
+export const getCalendarData = async (req, res) => {
   try {
-    const calendarData = await prisma.Calendar.findMany()
+    const calendarData = await calendarModel.findMany()
     return res.json(calendarData)
   } catch (e) {
     console.error(e.message)
     return res.status(400).send('Failed to retrieve day data.')
   }
-})
+}
 
-app.post('/api/calendar', async (req, res) => {
+export const createCalendarData = async (req, res) => {
   const data = req.body
 
   if (!data.dateString) {
@@ -31,7 +18,7 @@ app.post('/api/calendar', async (req, res) => {
   }
 
   try {
-    const note = await prisma.Calendar.create({
+    const note = await calendarModel.create({
       data,
     })
     return res.json(note)
@@ -39,14 +26,14 @@ app.post('/api/calendar', async (req, res) => {
     console.error(e.message)
     return res.status(500).send('Failed to add day data')
   }
-})
+}
 
-app.put('/api/calendar/:dateString', async (req, res) => {
+export const updateCalendarData = async (req, res) => {
   const data = req.body
   const dateString = req.params.dateString
 
   try {
-    const updateCalendarDay = await prisma.Calendar.update({
+    const updateCalendarDay = await calendarModel.update({
       where: { dateString },
       data,
     })
@@ -55,13 +42,13 @@ app.put('/api/calendar/:dateString', async (req, res) => {
     console.error(e.message)
     return res.status(500).send('Failed to update day data')
   }
-})
+}
 
-app.delete('/api/calendar/:dateString', async (req, res) => {
+export const deleteCalendarData = async (req, res) => {
   const dateString = req.params.dateString
 
   try {
-    await prisma.Calendar.delete({
+    await calendarModel.delete({
       where: { dateString },
     })
     return res.status(204).send()
@@ -69,8 +56,4 @@ app.delete('/api/calendar/:dateString', async (req, res) => {
     console.error(e.message)
     return res.status(500).send('Failed to delete from database')
   }
-})
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
-})
+}

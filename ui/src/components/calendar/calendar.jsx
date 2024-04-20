@@ -10,8 +10,8 @@ import {
 } from '../../context/calendarContexts'
 import { Confetti } from '../confetti/confetti'
 
-
 export const Calendar = () => {
+  // Main calendar state and dispatch function
   const state = useContext(CalendarContext)
   const dispatch = useContext(CalendarDispatchContext)
   // Array of days and months that will be used to generate the calendar.
@@ -46,6 +46,7 @@ export const Calendar = () => {
   )
   // Use utils function to generate the days in the calender
   const days = generateCalendarDays(state.calendarMonth)
+  // Local state to manage when confetti is shown
   const [showConfetti, setShowConfetti] = useState(false)
 
   const handlePreviousArrowClick = () => {
@@ -62,13 +63,14 @@ export const Calendar = () => {
         <thead>
           <tr>
             <th colSpan={7}>
-            {showConfetti && <Confetti setShowConfetti={setShowConfetti} />}
-
+              {showConfetti && (
+                <Confetti onComplete={() => setShowConfetti(false)} />
+              )}
               {state.selectedDay && (
                 <Modal
                   selectedDay={state.selectedDay}
                   dayData={state.dayData ? state.dayData : undefined}
-                  setShowConfetti={setShowConfetti}
+                  showConfetti={() => setShowConfetti(true)}
                 />
               )}
               <div className='headingContainer'>
