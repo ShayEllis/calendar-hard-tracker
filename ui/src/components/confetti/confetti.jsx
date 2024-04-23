@@ -19,6 +19,8 @@ export const Confetti = ({ onComplete }) => {
   // Create an event listener to update the window size if it is resized
   useEffect(() => {
     window.addEventListener('resize', determineWindowDimensions)
+    console.log(window)
+    console.log(windowDimensions)
     return () => window.removeEventListener('resize', determineWindowDimensions)
   }, [])
 
@@ -30,6 +32,7 @@ export const Confetti = ({ onComplete }) => {
       numberOfPieces={2500}
       recycle={false}
       onConfettiComplete={onComplete}
+      style={{ position: 'fixed' }}
     />
   )
 }

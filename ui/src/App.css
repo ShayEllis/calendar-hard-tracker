@@ -2,9 +2,9 @@
   overflow: hidden;
   height: 100vh;
   background-color: var(--main-background);
+  overflow: auto;
 }
 .bodyContainer {
-  height: 100%;
   display: flex;
   justify-content: center;
 }
