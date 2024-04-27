@@ -1,3 +1,5 @@
+import { convertServerData } from '../utils/utils'
+
 // Initial state
 export const initialState = {
   todaysDate: new Date(),
@@ -11,13 +13,9 @@ export const initialState = {
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'app/loadCalenderDayData': {
-      const serverDayData = action.payload.reduce((acc, val) => {
-        const valInputValues = {...val}
-        delete valInputValues.dateString
-        acc[val.dateString] = valInputValues
-        return acc
-      }, {})
-      return { ...state, dayData: { ...state.dayData, ...serverDayData } }
+      const formatedServerData = convertServerData(action.payload)
+
+      return { ...state, dayData: { ...state.dayData, ...formatedServerData } }
     }
     case 'calendar/previousMonth': {
       return {

@@ -24,3 +24,19 @@ export const generateCalendarDays = (currentDate) => {
 export const getDayIdentifier = (dayObj) => {
   return `${dayObj.getMonth()}${dayObj.getDate()}${dayObj.getFullYear()}`
 }
+
+export const convertServerData = (serverData) => {
+  return serverData.reduce((acc, val) => {
+    const valInputValues = {...val}
+    delete valInputValues.dateString
+    acc[val.dateString] = valInputValues
+    return acc
+  }, {})
+}
+
+export const convertUiData = (uiData) => {
+  return Object.keys(uiData).reduce((acc, val) => {
+    const convertedDayData = {dateString: val, ...uiData[val]}
+    return [...acc, convertedDayData]
+  }, [])
+}

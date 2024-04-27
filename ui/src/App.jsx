@@ -11,26 +11,39 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { localStorageUtils } from './utils/localStorage'
 
 function App() {
   // Manages all calendar state
   const [state, dispatch] = useReducer(reducer, initialState)
   // Spinner displays when data is being fetched from the server
-  const [fetchingData, setFetchingData] = useState(true)
+  const [fetchingData, setFetchingData] = useState(false)
 
   // Fetch exsisting data from the server
   useEffect(() => {
-    calendarServer
-      .fetchCalendarDayData()
-      .then((response) => {
-        if (response) {
-          dispatch({ type: 'app/loadCalenderDayData', payload: response })
-          setFetchingData(false)
-        }
+    if (localStorageUtils.checkSyncStatus()) {
+      dispatch({
+        type: 'app/loadCalenderDayData',
+        payload: localStorageUtils.getCachedData(),
       })
-      .catch((e) => {
-        console.error(`Failed to update calendar state - ${e.message}`)
-      })
+      // With Render the server goes to sleep, this will ping the server and wake it up for subsequent HTTP requests
+      calendarServer.fetchCalendarDayData()
+    } else {
+      setFetchingData(true)
+
+      calendarServer
+        .fetchCalendarDayData()
+        .then((response) => {
+          if (response) {
+            dispatch({ type: 'app/loadCalenderDayData', payload: response })
+            localStorageUtils.setCachedData(response, true)
+            setFetchingData(false)
+          }
+        })
+        .catch((e) => {
+          console.error(`Failed to update calendar state - ${e.message}`)
+        })
+    }
   }, [])
 
   return (

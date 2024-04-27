@@ -12,6 +12,8 @@ import Checkbox from '@mui/material/Checkbox'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import { localStorageUtils } from '../../utils/localStorage'
+import { convertUiData } from '../../utils/utils'
 
 export const Modal = ({ showConfetti }) => {
   // Main calendar state and dispatch function
@@ -80,13 +82,25 @@ export const Modal = ({ showConfetti }) => {
 
     if (state.exsistingDayData) {
       if (allInputValuesFalse) {
-        calendarServer.deleteCalendarDayData(state.selectedDay)
+        localStorageUtils.deleteFromCachedData(state.dayData, state.selectedDay)
+        calendarServer
+          .deleteCalendarDayData(state.selectedDay)
+          .then((response) => {
+            localStorageUtils.setSyncStatusTrue()
+          })
+
         dispatch({
           type: 'modal/deleteCalendarDayData',
           payload: state.selectedDay,
         })
       } else {
-        calendarServer.updateCalendarDayData(state.selectedDay, inputValues)
+        localStorageUtils.updateCachedData(state.dayData)
+
+        calendarServer
+          .updateCalendarDayData(state.selectedDay, inputValues)
+          .then((response) => {
+            localStorageUtils.setSyncStatusTrue()
+          })
       }
     } else {
       if (!allInputValuesFalse) {
@@ -94,7 +108,11 @@ export const Modal = ({ showConfetti }) => {
           dateString: state.selectedDay,
           ...inputValues,
         }
-        calendarServer.createCalendarDayData(dayData)
+        localStorageUtils.updateCachedData(state.dayData)
+
+        calendarServer.createCalendarDayData(dayData).then((response) => {
+          localStorageUtils.setSyncStatusTrue()
+        })
       } else {
         dispatch({
           type: 'modal/deleteCalendarDayData',

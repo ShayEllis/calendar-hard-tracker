@@ -10,6 +10,7 @@ export const calendarServer = {
     try {
       const response = await fetch(apiURI, options)
       if (!response.ok) throw new Error(await response.text())
+      return true
     } catch (e) {
       console.error(e.message)
     }
@@ -35,6 +36,7 @@ export const calendarServer = {
     try {
       const response = await fetch(`${apiURI}/${dateString}`, options)
       if (!response.ok) throw new Error(await response.text())
+      return true
     } catch (e) {
       console.error(e.message)
     }
@@ -47,6 +49,7 @@ export const calendarServer = {
     try {
       const response = await fetch(`${apiURI}/${dateString}`, options)
       if (!response.ok) throw new Error(await response.text())
+      return true
     } catch (e) {
       console.error(e.message)
     }
