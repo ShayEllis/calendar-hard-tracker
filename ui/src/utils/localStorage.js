@@ -16,7 +16,7 @@ export const localStorageUtils = {
     boolean ? this.setSyncStatusTrue() : this.setSyncStatusFalse()
   },
   setDataExpireTime() {
-    const timeBeforeExpired = 1000 * 60 * 60 * 6 // 6 hours
+    const timeBeforeExpired = 1000 * 60 * 60 * 12 // 12 hours
     localStorage.setItem(
       'cashedDataExpires',
       JSON.stringify(Date.now() + timeBeforeExpired)
