@@ -4,11 +4,11 @@ export const localStorageUtils = {
   checkSyncStatus() {
     return JSON.parse(localStorage.getItem('inSyncWithServer')) || false
   },
-  setSyncStatusFalse() {
-    localStorage.setItem('inSyncWithServer', 'false')
-  },
   setSyncStatusTrue() {
     localStorage.setItem('inSyncWithServer', 'true')
+  },
+  setSyncStatusFalse() {
+    localStorage.setItem('inSyncWithServer', 'false')
   },
   setCachedData(data, boolean) {
     localStorage.setItem('cachedCalendarData', JSON.stringify(data))

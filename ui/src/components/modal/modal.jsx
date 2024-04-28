@@ -83,10 +83,11 @@ export const Modal = ({ showConfetti }) => {
     if (state.exsistingDayData) {
       if (allInputValuesFalse) {
         localStorageUtils.deleteFromCachedData(state.dayData, state.selectedDay)
+
         calendarServer
           .deleteCalendarDayData(state.selectedDay)
           .then((response) => {
-            localStorageUtils.setSyncStatusTrue()
+            if (response) localStorageUtils.setSyncStatusTrue()
           })
 
         dispatch({
@@ -99,7 +100,7 @@ export const Modal = ({ showConfetti }) => {
         calendarServer
           .updateCalendarDayData(state.selectedDay, inputValues)
           .then((response) => {
-            localStorageUtils.setSyncStatusTrue()
+            if (response) localStorageUtils.setSyncStatusTrue()
           })
       }
     } else {
@@ -111,7 +112,7 @@ export const Modal = ({ showConfetti }) => {
         localStorageUtils.updateCachedData(state.dayData)
 
         calendarServer.createCalendarDayData(dayData).then((response) => {
-          localStorageUtils.setSyncStatusTrue()
+          if (response) localStorageUtils.setSyncStatusTrue()
         })
       } else {
         dispatch({

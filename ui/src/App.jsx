@@ -26,7 +26,7 @@ function App() {
         type: 'app/loadCalenderDayData',
         payload: localStorageUtils.getCachedData(),
       })
-      // With Render the server goes to sleep, this will ping the server and wake it up for subsequent HTTP requests
+      // Render's free server goes to sleep, this will ping the server and wake it up for subsequent HTTP requests
       calendarServer.fetchCalendarDayData()
     } else {
       setFetchingData(true)
