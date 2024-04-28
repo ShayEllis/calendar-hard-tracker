@@ -21,7 +21,10 @@ function App() {
 
   // Fetch exsisting data from the server
   useEffect(() => {
-    if (localStorageUtils.checkSyncStatus()) {
+    if (
+      localStorageUtils.checkSyncStatus() &&
+      localStorageUtils.checkIfDataExpired()
+    ) {
       dispatch({
         type: 'app/loadCalenderDayData',
         payload: localStorageUtils.getCachedData(),

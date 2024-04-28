@@ -12,7 +12,26 @@ export const localStorageUtils = {
   },
   setCachedData(data, boolean) {
     localStorage.setItem('cachedCalendarData', JSON.stringify(data))
+    if (boolean) this.setDataExpireTime()
     boolean ? this.setSyncStatusTrue() : this.setSyncStatusFalse()
+  },
+  setDataExpireTime() {
+    const timeBeforeExpired = 1000 * 60 * 60 * 6 // 6 hours
+    localStorage.setItem(
+      'cashedDataExpires',
+      JSON.stringify(Date.now() + timeBeforeExpired)
+    )
+  },
+  checkIfDataExpired() {
+    const timeNow = Date.now()
+    const storedTime = JSON.parse(localStorage.getItem('cashedDataExpires'))
+    let result
+    if (storedTime && storedTime > timeNow) {
+      result = true
+    } else {
+      result = false
+    }
+    return result
   },
   getCachedData() {
     let result = false
