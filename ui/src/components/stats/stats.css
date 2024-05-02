@@ -1,0 +1,14 @@
+.statsContainer {
+  width: 95%;
+  border: 1px solid black;
+  overflow: scroll;
+  margin-bottom: 1rem;
+}
+
+.testBox {
+  height: 3rem;
+  width: 3rem;
+  background-color: lightblue;
+  animation: pulse;
+  animation-duration: 1s;
+}

@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useState } from 'react'
 import { Calendar } from './components/calendar/calendar'
+import { Stats } from './components/stats/stats'
 import './App.css'
 import { reducer, initialState } from './reducers/appReducer'
 import {
@@ -75,6 +76,7 @@ function App() {
         )}
         <div className='bodyContainer'>
           <Calendar />
+          <Stats />
         </div>
       </CalendarDispatchContext.Provider>
     </CalendarContext.Provider>
