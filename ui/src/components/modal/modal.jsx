@@ -13,7 +13,6 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { localStorageUtils } from '../../utils/localStorage'
-import { convertUiData } from '../../utils/utils'
 
 export const Modal = ({ showConfetti }) => {
   // Main calendar state and dispatch function
