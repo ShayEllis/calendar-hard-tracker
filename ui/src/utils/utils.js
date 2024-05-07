@@ -27,7 +27,7 @@ export const getDayIdentifier = (dayObj) => {
 
 export const convertServerData = (serverData) => {
   return serverData.reduce((acc, val) => {
-    const valInputValues = {...val}
+    const valInputValues = { ...val }
     delete valInputValues.dateString
     acc[val.dateString] = valInputValues
     return acc
@@ -36,7 +36,48 @@ export const convertServerData = (serverData) => {
 
 export const convertUiData = (uiData) => {
   return Object.keys(uiData).reduce((acc, val) => {
-    const convertedDayData = {dateString: val, ...uiData[val]}
+    const convertedDayData = { dateString: val, ...uiData[val] }
     return [...acc, convertedDayData]
   }, [])
+}
+
+export const getCurrentStreak = (completedDays) => {
+  const convertDayStringToDate = (dateString) => {
+    const month =
+      parseInt(dateString.substring(0, 2)) <= 12
+        ? dateString.substring(0, 2)
+        : dateString.substring(0, 1)
+    const year = dateString.substring(dateString.length - 4)
+    const dayLength = dateString.length - month.length - year.length
+    const day = dateString.substring(month.length, month.length + dayLength)
+    return new Date(`${parseInt(month) + 1}, ${parseInt(day)}, ${parseInt(year)}`)
+  }
+
+  const sortedDayteStrings = completedDays.sort((a, b) => {
+    const aDate = convertDayStringToDate(a)
+    const bDate = convertDayStringToDate(b)
+
+    if (aDate < bDate) {
+      return -1
+    } else {
+      return 1
+    }
+  })
+
+  let dayStreak = 0
+  for (let i = 0; i < sortedDayteStrings.length - 1; i++) {
+    const currentDay = convertDayStringToDate(sortedDayteStrings[i])
+    const nextDay = convertDayStringToDate(sortedDayteStrings[i])
+    nextDay.setDate(nextDay.getDate() + 1)
+
+    if (
+      convertDayStringToDate(sortedDayteStrings[i + 1]).getTime() ===
+      nextDay.getTime()
+    ) {
+      dayStreak += 1
+    } else {
+      dayStreak = 1
+    }
+  }
+  return dayStreak
 }

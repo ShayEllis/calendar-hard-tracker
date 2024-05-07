@@ -8,9 +8,13 @@ export const ProgressChart = ({ goal, currentStreak }) => {
   const chartRef = useRef()
 
   const chartData = [currentStreak, goal - currentStreak]
+  const chartLables = [
+    `${chartData[0]} - Complete`,
+    `${chartData[1]} - Remaining`,
+  ]
 
   const data = {
-    labels: ['Complete', 'Remaining'],
+    labels: chartLables,
     datasets: [
       {
         label: 'Days',
@@ -33,11 +37,14 @@ export const ProgressChart = ({ goal, currentStreak }) => {
             bottom: 20,
           },
         },
-        plugins: {
-          legend: {
-            display: true,
-          },
-        },
+        // plugins: {
+        //   legend: {
+        //     labels: (a, b) => {
+        //       console.log(a)
+        //       console.log(b)
+        //     },
+        //   },
+        // },
       },
     })
   }
@@ -58,6 +65,7 @@ export const ProgressChart = ({ goal, currentStreak }) => {
   }, [])
 
   useEffect(() => {
+    chartRef.current.data.labels = chartLables
     chartRef.current.data.datasets[0].data = chartData
     chartRef.current.update()
   }, [goal, currentStreak])
