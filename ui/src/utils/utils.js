@@ -41,7 +41,7 @@ export const convertUiData = (uiData) => {
   }, [])
 }
 
-export const getCurrentStreak = (completedDays) => {
+export const getCurrentStreak = (completedDays, todaysDate) => {
   const convertDayStringToDate = (dateString) => {
     const month =
       parseInt(dateString.substring(0, 2)) <= 12
@@ -50,7 +50,9 @@ export const getCurrentStreak = (completedDays) => {
     const year = dateString.substring(dateString.length - 4)
     const dayLength = dateString.length - month.length - year.length
     const day = dateString.substring(month.length, month.length + dayLength)
-    return new Date(`${parseInt(month) + 1}, ${parseInt(day)}, ${parseInt(year)}`)
+    return new Date(
+      `${parseInt(month) + 1}, ${parseInt(day)}, ${parseInt(year)}`
+    )
   }
 
   const sortedDayteStrings = completedDays.sort((a, b) => {
@@ -58,25 +60,27 @@ export const getCurrentStreak = (completedDays) => {
     const bDate = convertDayStringToDate(b)
 
     if (aDate < bDate) {
-      return -1
-    } else {
       return 1
+    } else {
+      return -1
     }
   })
 
+  const todaysDateCopy = new Date(
+    convertDayStringToDate(getDayIdentifier(todaysDate))
+  )
   let dayStreak = 0
   for (let i = 0; i < sortedDayteStrings.length - 1; i++) {
-    const currentDay = convertDayStringToDate(sortedDayteStrings[i])
-    const nextDay = convertDayStringToDate(sortedDayteStrings[i])
-    nextDay.setDate(nextDay.getDate() + 1)
+    const previousDay = todaysDateCopy
+    previousDay.setDate(previousDay.getDate() - 1)
 
     if (
-      convertDayStringToDate(sortedDayteStrings[i + 1]).getTime() ===
-      nextDay.getTime()
+      convertDayStringToDate(sortedDayteStrings[i]).getTime() ===
+      previousDay.getTime()
     ) {
       dayStreak += 1
     } else {
-      dayStreak = 1
+      break
     }
   }
   return dayStreak
