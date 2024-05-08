@@ -50,9 +50,7 @@ export const getCurrentStreak = (completedDays, todaysDate) => {
     const year = dateString.substring(dateString.length - 4)
     const dayLength = dateString.length - month.length - year.length
     const day = dateString.substring(month.length, month.length + dayLength)
-    return new Date(
-      `${parseInt(month) + 1}, ${parseInt(day)}, ${parseInt(year)}`
-    )
+    return new Date(parseInt(year), parseInt(month), parseInt(day))
   }
 
   const sortedDayteStrings = completedDays.sort((a, b) => {
@@ -66,12 +64,9 @@ export const getCurrentStreak = (completedDays, todaysDate) => {
     }
   })
 
-  const todaysDateCopy = new Date(
-    convertDayStringToDate(getDayIdentifier(todaysDate))
-  )
+  const previousDay = convertDayStringToDate(getDayIdentifier(todaysDate))
   let dayStreak = 0
-  for (let i = 0; i < sortedDayteStrings.length - 1; i++) {
-    const previousDay = todaysDateCopy
+  for (let i = 0; i < sortedDayteStrings.length; i++) {
     previousDay.setDate(previousDay.getDate() - 1)
 
     if (

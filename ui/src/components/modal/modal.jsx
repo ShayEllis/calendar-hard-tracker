@@ -14,6 +14,11 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { localStorageUtils } from '../../utils/localStorage'
 
+const formControlLabelStyles = {
+ marginRight: 0,
+ marginTop: '.5rem'
+}
+
 export const Modal = ({ showConfetti }) => {
   // Main calendar state and dispatch function
   const state = useContext(CalendarContext)
@@ -139,10 +144,11 @@ export const Modal = ({ showConfetti }) => {
         onClose={handleModalClose}
         onMouseDown={handleBackdropClick}
         ref={modalRef}>
-        <Box sx={{ padding: '1rem' }}>
+        <Box >
           <FormGroup>
             <FormControlLabel
               label='Follow a diet'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -156,6 +162,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='No alcohol or cheat meal'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -171,6 +178,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='45 min indoor workout'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -184,6 +192,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='45 min outdoor workout'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -197,6 +206,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='Drink one gallon of water'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -210,6 +220,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='Progress picture'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -223,6 +234,7 @@ export const Modal = ({ showConfetti }) => {
             />
             <FormControlLabel
               label='Read ten pages'
+              sx={formControlLabelStyles}
               control={
                 <Checkbox
                   color='secondary'
@@ -238,7 +250,7 @@ export const Modal = ({ showConfetti }) => {
           <div>
             <Stack
               direction='row'
-              pt={1}
+              pt={2}
               justifyContent='center'
               alignItems='center'
               spacing={2}

@@ -16,7 +16,7 @@ export const Stats = () => {
     const inputValues = Object.values(state.dayData[dateString])
     return inputValues.every((value) => value === true)
   })
-  const currentStreak = completedDays.length //getCurrentStreak(completedDays, state.todaysDate) // ***** Doesnt work on mobile Safari *****
+  const currentStreak = getCurrentStreak(completedDays, state.todaysDate)
 
   return (
     <div className='statsContainer'>

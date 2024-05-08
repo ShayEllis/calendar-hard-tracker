@@ -7,9 +7,13 @@
 }
 .calendarCell:hover {
   background-color: var(--calendar-day-highlight);
+  opacity: 0.8;
 }
 .currentDate {
   color: var(--current-day);
+}
+.futureDate {
+  pointer-events: none;
 }
 .notCurrentMonth {
   opacity: 0.25;

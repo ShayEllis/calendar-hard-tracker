@@ -25,6 +25,8 @@ export const CalendarDay = ({ day }) => {
       return 'notCurrentMonth calendarCell'
     } else if (getDayIdentifier(state.todaysDate) === getDayIdentifier(day)) {
       return 'currentDate calendarCell'
+    } else if ((day.getTime() > state.todaysDate.getTime())) {
+      return 'futureDate calendarCell'
     } else {
       return 'calendarCell'
     }

@@ -1,8 +1,8 @@
 .dialog {
   position: relative;
   border: none;
-  min-width: 265px;
-  padding: 0;
+  min-width: 260px;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem;
   border-radius: 0.5rem;
   box-shadow: hsl(0 0% 0% / 20%) 0 0 0.5rem 0.25rem;
 }
