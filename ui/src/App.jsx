@@ -13,6 +13,19 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { localStorageUtils } from './utils/localStorage'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { purple } from '@mui/material/colors'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: '#4E6E58',
+    },
+  },
+})
 
 function App() {
   // Manages all calendar state
@@ -53,31 +66,33 @@ function App() {
   return (
     <CalendarContext.Provider value={state}>
       <CalendarDispatchContext.Provider value={dispatch}>
-        {fetchingData && (
-          <Backdrop
-            sx={{
-              color: '#AFB3F7',
-              zIndex: (theme) => theme.zIndex.drawer + 1,
-            }}
-            open={true}>
-            <CircularProgress color='inherit' size={85} thickness={2} />
-            <Box
+        <ThemeProvider theme={theme}>
+          {fetchingData && (
+            <Backdrop
               sx={{
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Typography variant='caption' component='div' color='inherit'>
-                Loading...
-              </Typography>
-            </Box>
-          </Backdrop>
-        )}
-        <div className='bodyContainer'>
-          <Calendar />
-          <Stats />
-        </div>
+                color: '#AFB3F7',
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+              }}
+              open={true}>
+              <CircularProgress color='inherit' size={85} thickness={2} />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Typography variant='caption' component='div' color='inherit'>
+                  Loading...
+                </Typography>
+              </Box>
+            </Backdrop>
+          )}
+          <div className='bodyContainer'>
+            <Calendar />
+            <Stats />
+          </div>
+        </ThemeProvider>
       </CalendarDispatchContext.Provider>
     </CalendarContext.Provider>
   )

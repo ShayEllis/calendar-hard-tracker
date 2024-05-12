@@ -19,8 +19,7 @@ export const ProgressChart = ({ goal, currentStreak }) => {
       {
         label: 'Days',
         data: chartData,
-        backgroundColor: ['rgba(139, 95, 191, 0.4)', 'rgba(81, 79, 89, 0.4)'],
-        borderColor: ['rgb(139, 95, 191)', 'rgb(81, 79, 89)'],
+        backgroundColor: ['#F0D0C6', '#B3B4B3'],
         borderWidth: 1,
         hoverOffset: 4,
       },
@@ -37,14 +36,6 @@ export const ProgressChart = ({ goal, currentStreak }) => {
             bottom: 20,
           },
         },
-        // plugins: {
-        //   legend: {
-        //     labels: (a, b) => {
-        //       console.log(a)
-        //       console.log(b)
-        //     },
-        //   },
-        // },
       },
     })
   }

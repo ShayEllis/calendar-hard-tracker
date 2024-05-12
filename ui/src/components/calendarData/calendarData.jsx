@@ -48,7 +48,7 @@ export const CalendarData = ({ date, dayData }) => {
     <div
       className='calendarDataContainer'
       style={
-        numTrueInputs === numInputs ? { backgroundColor: '#CCC9E7' } : undefined
+        numTrueInputs === numInputs ? { backgroundColor: '#F0D0C6' } : undefined
       }>
       <div className='dayHeader'>
         <div className='calendarDate'>{date}</div>

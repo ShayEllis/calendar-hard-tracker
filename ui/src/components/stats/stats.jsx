@@ -1,13 +1,14 @@
-import { useContext, useState, useMemo } from 'react'
+import { useContext, useState, useMemo, useEffect, useRef } from 'react'
 import { CalendarContext } from '../../context/calendarContexts'
 import './stats.css'
 import { ProgressChart } from '../progressChart/progressChart'
 import Button from '@mui/material/Button'
 import { getCurrentStreak, getDayIdentifier } from '../../utils/utils'
+import { hide } from '@popperjs/core'
 
 export const Stats = () => {
   const state = useContext(CalendarContext)
-  const [visible, setVisible] = useState(true)
+  const [hideChart, setHideChart] = useState(false)
   const goal = 75 // ****** MAKE EDITABLE? ******
 
   // ****** Would useMemo() help here? ******
@@ -18,16 +19,38 @@ export const Stats = () => {
   })
   const currentStreak = getCurrentStreak(completedDays, state.todaysDate)
 
+  const [chartHeight, setChartHeight] = useState()
+  const chartContainerRef = useRef()
+
+  useEffect(() => {
+    const handleStatsResize = () => {
+      setChartHeight(chartContainerRef.current.getBoundingClientRect().height)
+    }
+    handleStatsResize()
+    window.addEventListener('resize', handleStatsResize)
+
+    return () => window.removeEventListener('resize', handleStatsResize)
+  }, [])
+
   return (
     <div className='statsContainer'>
       <Button
         color='secondary'
         variant='contained'
         disableElevation
-        onClick={() => setVisible(!visible)}>
-        hide/show
+        onClick={() => setHideChart(!hideChart)}>
+        {hideChart ? '+': '-'}
       </Button>
-      {visible && <ProgressChart goal={goal} currentStreak={currentStreak} />}
+      <div
+        ref={chartContainerRef}
+        className='chartContainer'
+        style={
+          hideChart
+            ? {transform: 'scale(0)', marginBottom: `-${chartHeight}px`}
+            : undefined
+        }>
+        <ProgressChart goal={goal} currentStreak={currentStreak} />
+      </div>
     </div>
   )
 }

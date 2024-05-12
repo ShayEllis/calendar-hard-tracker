@@ -2,8 +2,8 @@
   --main-background: #f1f1f1;
   --current-day: #bb0a21;
   --main-text: #34312d;
-  --sat-sun-heading: rgba(120, 85, 137, 0.3);
-  --mon-fri-heading: rgba(138, 138, 209, 0.3);
+  --sat-sun-heading: rgba(179, 180, 179, 0.8);
+  --mon-fri-heading: rgba(179, 180, 179, 0.4);
   --calendar-data-background: rgb(212, 197, 226);
   --backdrop: hsl(0 0% 0% / 50%);
   --calendar-day-highlight: hsl(0 0% 0% / 5%);
